@@ -1,0 +1,45 @@
+
+# Equip Your New Robot #
+
+- While buttons are not found: (mod1)
+  - Search to the right of the elevator
+   - Search to the left of the elevator
+  - *Buttons found*
+    - If current floor is greater than desired floor:
+      - Press down button
+      - Otherwise press up button
+- Wait for doors to open
+  - Enter Elevator
+  - Turn around
+- While buttons are not found: (mod1)
+  - Search to the right of the elevator
+   - Search to the left of the elevator
+- *Buttons found*
+  - Until desired floor equals button number
+    - Find next button number
+  - Push button
+- Wait for doors to open
+- Get out while you still can!
+
+
+# Brushing Teeth #
+
+- Rinse toothbrush
+- Add toothpaste on brush
+- Place toothbrush on front of teeth
+  - Move brush left then right 15 times
+- Place toothbrush on teeth under left cheek
+  - Move brush left then right 15 times
+- Place toothbrush on teeth under right cheek
+  - Move brush left then right 15 times
+- Open Mouth
+- Place toothbrush on tops of bottom teeth
+  - Move brush left then right 15 times
+- Place tooth brush on bottoms of top teeth
+  - Move brush left then right 15 times
+- Place brush on tongue
+  - Move brush left then right 5 times
+- Rinse Toothbrush
+- Rinse mouth and split
+- Smile in mirror
+
