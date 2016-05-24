@@ -1,0 +1,21 @@
+section#contact-info{
+  font-size: .8em;
+}
+
+.job{
+  background-color: #e9e5dc;
+  margin: 20px;
+  padding: 15px;
+}
+
+.job:hover{
+  background-color: #F44343;
+}
+
+.ulists{
+  font-size:  .8em;
+}
+
+.job h3{
+  color: blue;
+}

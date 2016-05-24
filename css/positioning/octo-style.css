@@ -1,0 +1,19 @@
+div#body{
+  margin: 450px;
+  margin-top: 100px;
+
+}
+div#hat{
+  position: absolute;
+  left: 440px;
+  top: 50px;
+  z-index: 1;
+}
+
+div#glasses
+{
+  position: absolute;
+  left: 500px;
+  top: 200px;
+  z-index: 0;
+}
