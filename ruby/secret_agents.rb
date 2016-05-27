@@ -1,6 +1,9 @@
-#Get string input
-  puts "write a thing"  
-  password = gets.chomp
+
+##ENCRYPTION##
+
+#get user input
+#puts "Type your word to be encrypted"
+#password = gets.chomp
 
 #encryption method
 def encrypt(str)
@@ -25,15 +28,19 @@ def encrypt(str)
     times += 1
   end
   return encrypted
+
 end
+#puts encrypt(password)
 #print
-puts encrypt(password)
+#print string
 
 
 ##DECRYPTION##
-#get user input string
-  puts "write a thing"  
-  password = gets.chomp
+
+#get user input
+#puts "Type your word to be decrypted"
+#password_de = gets.chomp
+
 #decryption method
 def decrypt(str)
   #define loop variable
@@ -57,5 +64,45 @@ def decrypt(str)
   end
   return decrypted
 end
- #print string
-  puts decrypt(password)
+#puts decrypt(password_de)
+
+
+ #run the methods nested with a call
+#puts decrypt(encrypt("swordfish"))
+
+# Ruby is reducing the inner method before moving on to the outer method. 
+# Taking the result from the inner and running on the outer method.
+
+#dear agents,
+#Type a word to be encrypted next type a word to be decrypted 
+
+
+##AGENT INPUT AND STUFF
+
+
+is_agent = 0
+
+
+#ask for password
+puts "Enter password (letters only):"
+password = gets.chomp
+
+while is_agent == 0
+  #ask what to do to password
+puts "would you like to 'encrypt' or 'decrypt' a password?"
+protection = gets.chomp
+#conditionally run encrypt of decrypt method
+  if protection == "encrypt"
+    is_agent += 1
+    puts encrypt(password)
+  elsif protection == "decrypt"
+    is_agent += 1
+    puts decrypt(password)
+  else
+    puts "Try again"
+  end
+end
+#print result
+
+
+
