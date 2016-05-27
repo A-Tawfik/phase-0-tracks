@@ -89,7 +89,7 @@ is_agent = 0
 
 
 #ask for password
-puts "Enter password (letters only):"
+puts "Enter password:"
 password = gets.chomp
 
 while is_agent == 0
