@@ -1,3 +1,15 @@
+#Release 2
+
+def insert_array(arr, value)
+  arr << value
+end
+
+def build_array(a, b, c)
+  boy_band = [a, b, c]
+end
+
+
+#Release 1
 #intialize an array
 cars = []
 
@@ -30,3 +42,14 @@ people = ["Billy", "Jeff", "Jill", "Marry", "Joe"]
 people_cars = cars + people
 p people_cars
 
+p build_array("Billy", "Bobby", "Joey")
+
+p insert_array([1, 2, 3, 4], "a")
+p insert_array(["guitar", 1.4, true], "b")
+
+instruments = ["guitar", "drums", "banjo"]
+
+instruments = insert_array(instruments, "violin")
+instruments = insert_array(instruments, "fiddle")
+
+p instruments 
