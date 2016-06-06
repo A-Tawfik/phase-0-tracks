@@ -108,7 +108,7 @@ mall = {
     ]
   },
 }
-
+p mall[:Polo_RL]
 #Prints String value indexed from array in hash
 p mall[:MERICA][:top_selling][2]
 #prints fixnum value nested inside of 3 hashes
