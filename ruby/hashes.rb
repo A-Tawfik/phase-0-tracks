@@ -1,7 +1,6 @@
 #Prompt the designer/user for all the information
 #Convert any user input to the appropriate data type
 
-
 puts "Name of client?"
 name = gets.chomp
 
@@ -22,6 +21,7 @@ down_walls = gets[0] == 'y'
 
 #Print the hash back out to the screen when the designer has answered all of the questions
 p new_design = {name: name, address: address, bdrms: bdrms, btrms: btrms, color: color, down_walls: down_walls}
+
 
 #Ask user if changes need to be made
   puts "Do any changes need to be made?(y/n)"
