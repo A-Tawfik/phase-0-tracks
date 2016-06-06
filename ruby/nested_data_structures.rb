@@ -2,7 +2,6 @@
 #Stores as hash with 'name', 'type of store', 'number of employees', 'top 3 items' as keys
 #'top 3 items' as array, 'number of employees' as hash with keys of 'managers' and 'employees'
 
-
 mall = {
   Polo_RL: {
     name: "Polo Ralph Lauren",
