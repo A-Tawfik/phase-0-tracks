@@ -7,9 +7,11 @@
   # print the list to the console [Print to pretty method]
 # output: hash item as the key and quantity as the value
 
-
-
-
+def create_list(input_string)
+  input_arr = input_string.split(" ")
+  new_shopping_list = Hash.new
+  new_shopping_list = Hash[input_arr.collect{|item, | [item, 1]}]
+end  
 
 # Method to add an item to a list
 # input: item name and optional quantity
@@ -18,6 +20,9 @@
   # add item to list (.push)
 # output: updated hash with new item and quantity
 
+def add_or_update_item_qty(shopping_list, item, quantity)
+    shopping_list[item] = quantity
+end
 
 
 
@@ -28,7 +33,9 @@
   # use delete method to remove item
 # output: updated hash without item
 
-
+def remove_item(shopping_list, item)
+    shopping_list.delete(item)
+end
 
 
 
@@ -40,6 +47,11 @@
   # push new information in
 # output: updated hash with new quantity value
 
+#def update_qty(shopping_list, item, quantity)
+#
+#
+#    shopping_list[item] = quantity
+#end
 
 
 
@@ -51,8 +63,37 @@
   # iteration through the hash to print each item in a sentence that is interpolated with items
 # output: user readable list
 
+def print_list(shopping_list)
+    puts "SHOPPING LIST:"
+  shopping_list.each do |item, qty|
+      puts "-#{item} ---> #{qty}"
+  end
+
+end
 
 
+
+
+
+
+## TEST CODE
+item = "cookie"
+
+p shopping_list = create_list("carrots apples cereal pizza")
+
+
+puts "how many #{item}s would you like to add/update?"
+quantity = gets.chomp.to_i
+
+add_or_update_item_qty(shopping_list, item, quantity)
+
+p shopping_list
+
+remove_item(shopping_list, item)
+
+p shopping_list
+
+print_list(shopping_list)
 
 
 
