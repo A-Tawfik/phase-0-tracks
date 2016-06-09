@@ -4,8 +4,8 @@ class TodoList
     @list = array
   end
 
-  def get_items(int)
-    @list[int]
+  def get_items
+    @list
   end
 
   def add_item(item)
@@ -14,6 +14,10 @@ class TodoList
 
   def delete_item(item)
     @list.delete(item)
+  end
+
+  def get_item(int)
+    @list[int]
   end
 
 end
