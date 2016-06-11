@@ -63,8 +63,8 @@ end
 
 # Random Ethnicity selector
 def random_ethnicity
-  all_ethnicity_arr = ["Afghan","Albanian","Arab","Argentine","American musicians of Armenian descent","Armenian","Australian","Austrian","Azerbaijani","Bahamian","Bangladeshi","Barbadian","Belgian","Brazilian","Bulgarian","Cajuns","Cambodian","Chinese","Colombian","Coptic","Croatian","Cuban","Czech","Danish","Dominican","Dutch","Egyptian of English descent","Estonian","Ethiopian","Finnish","French","German","German Texans","Greek","Guyanese","Haitian","Hispanic/Latino","Hmong","Honduran","Hungarian","Indian","indigenous people of the Americas","Indonesian","American Inuit","Iranian","Iraqi","Irish","Israeli","Italian","Jamaican","Japanese","Kazakh","Korean","Laotian","Lebanese","Louisiana Creoles","Macedonian","Mexican","User:BlindForay/sandbox","Native Hawaiians","Nicaraguan","Nigerian","Norwegian","Pakistani","Palestinian","Panamanian","Polish","Portuguese","Stateside Puerto Ricans","Romanian","Russian","Rusyn","Salvadoran","Scotch-Irish","Scottish","Serbian","Sicilian","Slovak","Slovene","Somali","Spanish","Sri Lankan","Swedish","Swiss","Taiwanese","Turkish","Ukrainian","Uruguayan","Venezuelan","Vietnamese","Welsh"]
-  ethnicity = all_ethnicity_arr[rand(all_ethnicity_arr.length)]
+  wikipedia_ethnicity_arr = ["Afghan","Albanian","Arab","Argentine","American musicians of Armenian descent","Armenian","Australian","Austrian","Azerbaijani","Bahamian","Bangladeshi","Barbadian","Belgian","Brazilian","Bulgarian","Cajuns","Cambodian","Chinese","Colombian","Coptic","Croatian","Cuban","Czech","Danish","Dominican","Dutch","Egyptian of English descent","Estonian","Ethiopian","Finnish","French","German","German Texans","Greek","Guyanese","Haitian","Hispanic/Latino","Hmong","Honduran","Hungarian","Indian","indigenous people of the Americas","Indonesian","American Inuit","Iranian","Iraqi","Irish","Israeli","Italian","Jamaican","Japanese","Kazakh","Korean","Laotian","Lebanese","Louisiana Creoles","Macedonian","Mexican","User:BlindForay/sandbox","Native Hawaiians","Nicaraguan","Nigerian","Norwegian","Pakistani","Palestinian","Panamanian","Polish","Portuguese","Stateside Puerto Ricans","Romanian","Russian","Rusyn","Salvadoran","Scotch-Irish","Scottish","Serbian","Sicilian","Slovak","Slovene","Somali","Spanish","Sri Lankan","Swedish","Swiss","Taiwanese","Turkish","Ukrainian","Uruguayan","Venezuelan","Vietnamese","Welsh"]
+  ethnicity = wikipedia_ethnicity_arr[rand(wikipedia_ethnicity_arr.length)]
 end
 
 
@@ -85,6 +85,7 @@ santas = []
   puts "Ethnicity: #{santa.ethnicity}"
   puts "Age: #{santa.age}"
   puts "Favorite reindeer: #{santa.reindeer_ranking}"
+  puts "Painted face: #{santa.painted_face}"
   puts "------------------------"
 end
 
