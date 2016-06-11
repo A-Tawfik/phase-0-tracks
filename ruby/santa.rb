@@ -1,5 +1,6 @@
 class Santa
-
+  attr_reader :ethnicity
+  attr_accessor :age, :reindeer_ranking, :gender
 
 
   def initialize(gender, ethnicity, painted_face)
@@ -10,32 +11,6 @@ class Santa
     @reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
     @age = 0
   end  
-
-# setter methods
-  def age=(age)
-    @age = age
-  end
-
-  def reindeer_rank=(reindeer_ranking)
-    @reindeer_ranking = reindeer_ranking
-  end
-
-  def gender=(gender)
-    @gender = gender
-  end
-
-# getter methods
-  def age
-    @age
-  end
-
-  def ethnicity
-    @ethnicity
-  end
-
-  def reindeer_rank
-    @reindeer_ranking
-  end
 
 # santa actions that change attributes
   def celebrate_birthday
