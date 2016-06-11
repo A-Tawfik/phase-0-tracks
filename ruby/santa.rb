@@ -1,5 +1,5 @@
 class Santa
-  attr_reader :ethnicity
+  attr_reader :ethnicity, :painted_face
   attr_accessor :age, :reindeer_ranking, :gender
 
 
@@ -71,26 +71,24 @@ end
 #creates 100 unique santas (1.8 billion possibilities!!!! MUAHAHAHAHA!)
 santas = []
  100.times do |i|
-  if rand(100) > 53 
+  if (rand(100)).even?
     face = "painted"
   else
     face = "Not painted" 
   end
-  santas << Santa.new(random_gender, random_ethnicity, face)
+  santa = Santa.new(random_gender, random_ethnicity, face)
+  santa.age = rand(140)
+  santa.reindeer_ranking = random_reindeer_list
+  puts "------------------------"
+  puts "Santa ##{i+1} attributes:"
+  puts "Gender: #{santa.gender}"
+  puts "Ethnicity: #{santa.ethnicity}"
+  puts "Age: #{santa.age}"
+  puts "Favorite reindeer: #{santa.reindeer_ranking}"
+  puts "------------------------"
 end
-santas.each {|santa| santa.reindeer_rank= random_reindeer_list }
-santas.each {|santa| santa.age= rand(20..100)}
 
 
-p santas
-santa = Santa.new(random_gender, random_ethnicity, "painted")
-santa.age= 35
-santa.reindeer_rank = random_reindeer_list
-
-p santa.age
-p santa.ethnicity
 
 
-p santa.reindeer_rank
-santa.get_mad_at("Vixen")
-p santa.reindeer_rank
+
