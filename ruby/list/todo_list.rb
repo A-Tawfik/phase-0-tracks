@@ -1,7 +1,7 @@
 class TodoList
   
   def initialize(array)
-    @list = array
+      @list = array
   end
 
   def get_items
