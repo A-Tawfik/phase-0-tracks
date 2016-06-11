@@ -1,5 +1,7 @@
 class Santa
 
+
+
   def initialize(gender, ethnicity, painted_face)
     puts "Initializing Santa instance..."
     @painted_face = painted_face == "painted"
@@ -9,29 +11,59 @@ class Santa
     @age = 0
   end  
 
-  def age(age)
+# setter methods
+  def age=(age)
     @age = age
   end
 
-  def reindeer_rank(reindeer_ranking)
+  def reindeer_rank=(reindeer_ranking)
     @reindeer_ranking = reindeer_ranking
   end
 
+  def gender=(gender)
+    @gender = gender
+  end
+
+# getter methods
+  def age
+    @age
+  end
+
+  def ethnicity
+    @ethnicity
+  end
+
+  def reindeer_rank
+    @reindeer_ranking
+  end
+
+# santa actions that change attributes
+  def celebrate_birthday
+    @age += 1
+  end
+
+  def get_mad_at(reindeer)
+    if @reindeer_ranking.include?(reindeer)
+      @reindeer_ranking.delete(reindeer)
+      @reindeer_ranking << reindeer
+      puts "#{reindeer} is on my naughty list!"
+    else
+      puts "I don't know who that is"
+    end
+  end
+
+# santa actions that change nothing
   def speak
     puts "Ho, ho, ho! Haaaaappy holidays! I'm #{@name}!"
   end
  
   def eat_milk_and_cookies(cookie_type)
     puts "That was a good #{cookie_type} cookie!"
-
   end
 
   def about
     puts "This santa is #{@gender} and #{@ethnicity}"
   end
-
-  
-
 
 end
 
@@ -71,17 +103,19 @@ santas = []
   end
   santas << Santa.new(random_gender, random_ethnicity, face)
 end
-santas.each {|santa| santa.reindeer_rank(random_reindeer_list)}
-santas.each {|santa| santa.age(rand(20..100))}
+santas.each {|santa| santa.reindeer_rank= random_reindeer_list }
+santas.each {|santa| santa.age= rand(20..100)}
 
 
 p santas
+santa = Santa.new(random_gender, random_ethnicity, "painted")
+santa.age= 35
+santa.reindeer_rank = random_reindeer_list
+
+p santa.age
+p santa.ethnicity
 
 
-
-
-
-
-
-
-
+p santa.reindeer_rank
+santa.get_mad_at("Vixen")
+p santa.reindeer_rank
