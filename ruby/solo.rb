@@ -117,11 +117,10 @@ def main_menu
   puts "++++++ MENU ++++++
 ++++++++++++++++++
 1 - Create new Harnesses
-2 - Select existing Harness to EDIT
+2 - EDIT existing Harness
 3 - View all Harness data (short history)
 4 - View all Harness age
-5 - Remove Harness
-6 - Exit"
+5 - Exit"
 
   # loop to insure correct selection
   selection = -1
@@ -131,24 +130,26 @@ def main_menu
 ++++++++++++++++++"
     selection = gets.chomp.to_i
   end
-
   # case statement to run correct method
   case selection
     when 1
+      system("clear")
       new_harnesses
     when 2
-      select_harness
+      system("clear")
+        edit_harness(select_harness)
     when 3
+      system("clear")
       view_all_history
     when 4
+      system("clear")
       view_all_age
     when 5
-      remove_harness
-    when 6
       exit
   end
 end
 
+## Create 'n' number of new Harness (class) with parameters 
 def new_harnesses
   puts "++ NEW HARNESSES++
 ++++++++++++++++++"
@@ -157,100 +158,217 @@ def new_harnesses
     puts "How many Harnesses would you like to create?"
     number = gets.chomp.to_i
   end
-  counter = 0
+  counter = 1
   while number > 0
-    counter += 1
-    puts "Harness #{counter} input ==============="
-    puts "Input a harness number: (standard format of one letter and 2 number eg. A99)"
-    harness_number = gets.chomp
+      puts "-------- Harness #{counter} input --------"
+      puts "Input a harness NUMBER: (standard format of one letter and 2 number eg. A99)"
+      harness_number = gets.chomp
 
-    puts "Input a harness Type:(1 wire, 2 wire, double-single, jerk, ballet, garden...etc.)"
-    harness_type = gets.chomp
+    if $all_harnesses[0..$all_harnesses.length].include?(harness_number.upcase)
+      puts "Sorry, that Harness already exists. Please input a unique ID"
+    
+    else
 
-    puts "Input Year harness was built:"
-    harness_year = gets.chomp.to_i
+      puts "Input a harness TYPE: (single, 2-point, 3-point, jerk, ballet, garden...etc.)"
+      harness_type = gets.chomp
+  
+      puts "Input YEAR #{harness_number} was built:(yyyy)"
+      harness_year = gets.chomp.to_i
 
-    harness_number = Harness.new(harness_number, harness_type, harness_year)
-    $all_harnesses << harness_number
-
-    harness_number.print
-    number = number - 1
+      harness = Harness.new(harness_number, harness_type, harness_year)
+      $all_harnesses << harness
+      harness.print
+      number = number - 1
+      counter += 1
+    end
   end
   return $all_harnesses
 end
 
+ 
+#saves selected harness in 'current_harness'
 def select_harness
-  p "select harness"
+  all_harness_str = ""
+  $all_harnesses.each_with_index do |harness, index|
+    new_harness = "   " + index.to_s + "- " +  harness.serial_number
+    all_harness_str += new_harness
+  end
+  puts all_harness_str
+      harness_input = -1
+  until harness_input >= 0 && harness_input < $all_harnesses.length 
+    puts "Which HARNESS to edit?(select number)"
+    harness_input = gets.chomp.to_i
+    current_harness = $all_harnesses[harness_input]
+  end
+  return current_harness
+end
+
+def edit_harness(current_harness)
+  puts "+++EDIT HARNESS+++
+++++++++++++++++++
+# 1 - Add location
+# 2 - Add inspection note
+# 3 - Add/update condition note
+# 4 - Remove harness
+# 5 - View full history
+# 6 - Go back
+# 7 - Exit program (all data lost)"
+
+  # loop to insure correct selection
+  selection = -1
+  until selection.class == Fixnum && selection > 0 && selection < 9
+    puts "++++++++++++++++++
++ Select a NUMBER+
+++++++++++++++++++"
+    selection = gets.chomp.to_i
+  end
+  # case statement to run correct method
+  case selection
+    when 1
+      system("clear")
+      add_location(current_harness)
+    when 2
+      system("clear")
+      add_inspection(current_harness)
+    when 3
+      system("clear")
+      update_condition(current_harness)
+    when 4
+      system("clear")
+      remove_harness(current_harness)
+    when 5
+      system("clear")
+      view_history(current_harness)
+    when 6
+      system("clear")
+      main_menu
+    when 7
+      exit
+  end
 end
 
 def view_all_history
-  p "view all history"
+  $all_harnesses.each {|harness| harness.print}
 end
 
 def view_all_age
-  p "view all age"
+  $all_harnesses.each do |harness|
+    puts "#{harness.serial_number} is #{2016 - harness.year_built} years old"
+  end
 end
 
-def remove_harness
-  p "remove harness"
+
+# These methods change a harnesses attributes
+
+def add_location(current_harness)
+  current_harness.print
+  puts "Location of #{current_harness.serial_number}? (City, State)"
+  location = gets.chomp
+  puts "Date sent?(mm/dd/yyyy)"
+  date = gets.chomp
+  current_harness.new_location(location, date)
+  current_harness.print
 end
 
+def add_inspection(current_harness)
+  current_harness.print
+  puts "Date of inspection?(mm/dd/yyyy)"
+  date = gets.chomp
+  puts "Notes about #{current_harness.serial_number}?"
+  notes = gets.chomp
+
+  current_harness.inspection(date, notes)
+  current_harness.print
+end
+
+
+def update_condition(current_harness)
+  current_harness.print
+  puts "Current condition?"
+  cond = gets.chomp
+  puts "Date condition took effect?(mm/dd/yyyy)"
+  date = gets.chomp
+  puts "Notes to add to current state of #{current_harness.serial_number}?"
+  notes = gets.chomp
+
+  current_harness.change_condition(cond, date, notes)
+  current_harness.print
+end
+
+def remove_harness(current_harness)
+  current_harness.print
+  $all_harnesses.delete(current_harness)
+end   
+
+def view_history(current_harness)
+  current_harness.history
+end
+
+def view_age(current_harness)
+    current_harness.print
+  "#{current_harness.serial_number} is #{2016 - current_harness.year_built} years old"
+end
+
+
+
+# SAMPLE CODE (DELETE WHEN WE LEARN HOW TO KEEP DATA STORED)
+
+harness_input = "H55"
+harness = Harness.new(harness_input.upcase, "2-point", 2013)
+$all_harnesses << harness
+harness.new_location("White Plains, NY", "1/2/14")
+harness.inspection("1/15/14", "This harness is great")
+harness.new_location("Kingston, NY", "8/16/14")
+harness.inspection("8/26/14", "This harness is great")
+harness.new_location("Albany, NY", "6/4/15")
+harness.inspection("6/26/15", "This harness is good")
+harness.new_location("Memphis, TN", "6/4/16")
+#p harness.inspection_modification_history
+harness.change_condition("fair", "6/6/16", "Harness has been worn out on straps")
+
+harness_input = "H57"
+harness = Harness.new(harness_input.upcase, "2-point", 2013)
+$all_harnesses << harness
+harness.new_location("White Plains, NY", "1/2/14")
+harness.inspection("1/15/14", "This harness is great")
+harness.new_location("Kingston, NY", "8/16/14")
+harness.inspection("8/26/14", "This harness is great")
+harness.new_location("Albany, NY", "6/4/15")
+harness.inspection("6/26/15", "This harness is good")
+harness.new_location("Memphis, TN", "6/4/16")
+#p harness.inspection_modification_history
+harness.change_condition("fair", "6/6/16", "Harness has been worn out on straps")
+
+harness_input = "B52"
+harness = Harness.new(harness_input.upcase, "3-point", 1991)
+$all_harnesses << harness
+harness.new_location("White Plains, NY", "1/2/14")
+harness.inspection("1/15/14", "This harness is great")
+harness.new_location("Kingston, NY", "8/16/14")
+harness.inspection("8/26/14", "This harness is great")
+harness.new_location("Albany, NY", "6/4/15")
+harness.inspection("6/26/15", "This harness is good")
+harness.new_location("Memphis, TN", "6/4/16")
+#p harness.inspection_modification_history
+harness.change_condition("fair", "6/6/16", "Harness has been worn out on straps")
+
+harness_input = "A55"
+harness = Harness.new(harness_input.upcase, "single", 2001)
+$all_harnesses << harness
+harness.new_location("White Plains, NY", "1/2/14")
+harness.inspection("1/15/14", "This harness is great")
+harness.new_location("Kingston, NY", "8/16/14")
+harness.inspection("8/26/14", "This harness is great")
+harness.new_location("Albany, NY", "6/4/15")
+harness.inspection("6/26/15", "This harness is good")
+harness.new_location("Memphis, TN", "6/4/16")
+#p harness.inspection_modification_history
+harness.change_condition("fair", "6/6/16", "Harness has been worn out on straps")
+######################################################################################
+
+
+# driver code
 loop do
 main_menu
 end
 
-
-
-
-# USER INPUT
-
-
-
-
-
-
-
-
-
-#TEST CODE
-
-
-
-
-
-
-#harness = "h55"
-#harness = Harness.new(harness.upcase, "2w", 2016)
-#
-#all_harnesses << harness.serial_number
-#h55 = harness
-#p h55.class
-#p harness
-#p h55.current_location
-#harness.new_location("White Plains, NY", "1/2/14")
-#harness.new_location("Kingston, NY", "8/16/32")
-#harness.new_location("Albany, NY", "6/4/12")
-#harness.new_location("Memphis, TN", "6/4/16")
-##p harness.inspection_modification_history
-#harness.inspection("6/6/16", "This harness is great")
-#harness.change_condition("Good", "6/6/16", "Harness has been used")
-#harness.print
-#harness.history
-#
-#
-#
-#
-#harness = gets.chomp
-##is it unique
-#if all_harnesses.include?(harness.upcase)
-#  puts "Sorry, that Harness already exists. Please input a unique ID"
-#else
-#harness = Harness.new(harness.upcase, "2w", 2016)
-#all_harnesses << harness.serial_number
-#harness.current_location
-##p harness.inspection_modification_history
-#harness.inspection("6/6/16", "This harness is not great")
-#harness.change_condition("Good", "6/6/16", "the 2nd try")
-#harness.print
-#harness.history
-#end
