@@ -4,13 +4,15 @@
 //lather, rinse, repeat
 
 //define variables
-var str = "hello"
 var newStr = ""
 
 //reverse loop
-for (var i = 0; i < str.length; i++) {
-  newStr = str[i] + newStr;
+function reverse(str) {
+  for (var i = 0; i < str.length; i++) {
+    newStr = str[i] + newStr;
+  }
+  //print new string
+console.log(newStr);
 }
 
-//print new string
-console.log(newStr);
+reverse("hola")
