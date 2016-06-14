@@ -3,6 +3,14 @@
 // for each iteration of the loop, add the current letter plus the 'new string'
 //lather, rinse, repeat
 
+//define variables
+var str = "hello"
+var newStr = ""
+
+//reverse loop
 for (var i = 0; i < str.length; i++) {
-  console.log(str[i]);
+  newStr = str[i] + newStr;
 }
+
+//print new string
+console.log(newStr);
