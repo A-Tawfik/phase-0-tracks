@@ -5,6 +5,7 @@
 
 //define variables
 var newStr = ""
+var reversed_str = ""
 
 //reverse loop
 function reverse(str) {
@@ -15,4 +16,8 @@ function reverse(str) {
 console.log(newStr);
 }
 
-reverse("hola")
+if (1 + 2 == 3) {
+  reversed_str = reverse("rimA si eman yM")
+} else {
+  console.log("no reverse for you!")
+}
