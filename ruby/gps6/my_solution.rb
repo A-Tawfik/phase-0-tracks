@@ -53,7 +53,7 @@ class VirusPredictor
     # by additional factors we haven't added into this functionality.
     speed = 2.5
 
-     #for every 50 population_desity, add .5 to speed
+     #for every 50 population_desity, subtract .5 to speed
     @population_density.floor.times do |i|
         if i>200
           break
@@ -84,3 +84,31 @@ end
 # alaska.virus_effects
 #=======================================================================
 # Reflection Section
+What are the differences between the two different
+ hash syntaxes shown in the state_data file?
+
+one uses a string as the key making each and the other uses symbols. 
+This allows the major hash to have an unlimited variety in key values while each 
+sub has had a specific key to be called.
+Also, the => is used instead of = in the sub hash because we are assiging the 
+string key the value of the sub hash.
+
+What does require_relative do? How is it different from require?
+
+requre_relative allows you to point to a file in the relative directory of the
+file containing this argument. require must be something within the project library
+or have its path called upon from the root directory
+
+What are some ways to iterate through a hash?
+you can use .each where the key and the value are available to you.
+
+When refactoring virus_effects, what stood out to you about the variables, if anything?
+
+all the variables listed in virus_effects were already listed as instance variables
+during the initialize method. They were not needed as an input parameter for any other
+method in that class.
+
+What concept did you most solidify in this challenge?
+concepts of methods calling other methods. Also the idea of a private method and when it 
+should be used.
+
