@@ -19,3 +19,8 @@ function longestPhrase(phrases) {
 
 var words = ["This is the longest by far", "apples", "a BANANA"];
 console.log(longestPhrase(words));
+words = ["soup", "ice cream", "salad"];
+console.log(longestPhrase(words));
+words = ["Amir", "a Mirror", "Amir or what?"];
+console.log(longestPhrase(words));
+
