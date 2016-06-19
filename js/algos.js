@@ -80,6 +80,9 @@ function randomArray(times) {
 return array;
 }
 
+
+
+// driver code release 2
 for (x=0;x<10;x++){
   var arrayToPush = randomArray(Math.ceil(Math.random() * 5));
   console.log(arrayToPush);
