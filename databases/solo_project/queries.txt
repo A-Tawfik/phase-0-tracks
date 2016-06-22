@@ -1,0 +1,116 @@
+QUERIES LIST 
+
+0> .schema
+
+  CREATE TABLE Expenses (
+  id INTEGER PRIMARY KEY,
+  Paid_to VARCHAR(255),
+  Value_cents INT,
+  Employee_id INT,
+  Reimbursed BOOLEAN,
+  FOREIGN KEY (Employee_id) REFERENCES Employee(id) );
+  CREATE TABLE Employee (
+  id INTEGER PRIMARY KEY,
+  Name VARCHAR(255) );
+
+
+
+1>  SELECT * 
+    FROM Expenses;
+
+  DISPLAYED:
+  1|American Airlines|55200|1|false
+  2|Holiday Inn|88000|1|false
+  3|Yellow Cab|3200|1|false
+  4|Yellow Cab|3400|1|false
+  5|Yellow Cab|3400|2|true
+  6|United Airline|34000|2|false
+  7|Staples|18000|2|true
+  8|Parking Pros|12800|2|false
+  9|Hertz - Rental car|55700|2|false
+  10|United Airline|52700|2|true
+  11|United Airline|52700|3|true
+  12|American Airlines|52700|4|false
+  13|American Airlines|52700|5|false
+  14|Staples|2000|5|false
+  15|Yellow Cab|2000|5|false
+
+
+
+2>  UPDATE expenses 
+    SET Reimbursed="true" 
+    WHERE id="13";
+
+  DISPLAYED(No display but after update i checked by doing 
+            SELECT * FROM expenses WHERE id=13;)
+    13|American Airlines|52700|5|true
+
+
+
+
+3>  SELECT * FROM expenses 
+JOIN employee 
+ON employee_id = employee.id;
+
+  DISPLAYED:
+    1|American Airlines|55200|1|false|1|Amir Tawfik
+    2|Holiday Inn|88000|1|false|1|Amir Tawfik
+    3|Yellow Cab|3200|1|false|1|Amir Tawfik
+    4|Yellow Cab|3400|1|false|1|Amir Tawfik
+    5|Yellow Cab|3400|2|true|2|Kyle McDonald
+    6|United Airline|34000|2|false|2|Kyle McDonald
+    7|Staples|18000|2|true|2|Kyle McDonald
+    8|Parking Pros|12800|2|false|2|Kyle McDonald
+    9|Hertz - Rental car|55700|2|false|2|Kyle McDonald
+    10|United Airline|52700|2|true|2|Kyle McDonald
+    11|United Airline|52700|3|true|3|Jamie O'Brian
+    12|American Airlines|52700|4|false|4|Kareem Abdulla
+    13|American Airlines|52700|5|true|5|Hector Salamanca
+    14|Staples|2000|5|false|5|Hector Salamanca
+    15|Yellow Cab|2000|5|false|5|Hector Salamanca
+
+
+4>  SELECT expenses.paid_to,expenses.value_cents,employee.name 
+    FROM expenses, employee 
+    WHERE expenses.employee_id = employee.id AND expenses.reimbursed = "false";
+
+    DISPLAYED:
+      American Airlines|55200|Amir Tawfik
+      Holiday Inn|88000|Amir Tawfik
+      Yellow Cab|3200|Amir Tawfik
+      Yellow Cab|3400|Amir Tawfik
+      United Airline|34000|Kyle McDonald
+      Parking Pros|12800|Kyle McDonald
+      Hertz - Rental car|55700|Kyle McDonald
+      American Airlines|52700|Kareem Abdulla
+      Staples|2000|Hector Salamanca
+      Yellow Cab|2000|Hector Salamanca
+
+
+
+5>  DELETE FROM expenses
+    WHERE employee_id=5;
+
+    DISPLAYED(NO DISPLAY but also ran
+              SELECT * FROM expenses;
+              to check):
+    1|American Airlines|55200|1|false
+    2|Holiday Inn|88000|1|false
+    3|Yellow Cab|3200|1|false
+    4|Yellow Cab|3400|1|false
+    5|Yellow Cab|3400|2|true
+    6|United Airline|34000|2|false
+    7|Staples|18000|2|true
+    8|Parking Pros|12800|2|false
+    9|Hertz - Rental car|55700|2|false
+    10|United Airline|52700|2|true
+    11|United Airline|52700|3|true
+    12|American Airlines|52700|4|false
+
+
+
+
+
+
+
+
