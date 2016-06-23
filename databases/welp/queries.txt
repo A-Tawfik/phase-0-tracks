@@ -1,0 +1,27 @@
+2.2
+SELECT * FROM reviews
+  JOIN businesses ON businesses.id = reviews.business_id
+  JOIN users ON users.id = reviews.user_id;
+
+1|5|good food!|1|1|1|Grundy Hollow Wedding Chapel|1|Bradford|Pitt
+2|1|terrible food!|6|4|6|Sushi World|4|Steven|Wonder
+3|3|My dog came back sick|3|5|3|The Beagle Nightclub|5|Holly|Berry
+4|5|car came back in perfect condition|2|3|2|Amir's Towing|3|Angela|Jolie
+
+2.3
+SELECT businesses.name, users.first_name, users.last_name, reviews.stars, reviews.comment FROM reviews
+  JOIN businesses ON businesses.id = reviews.business_id
+  JOIN users ON users.id = reviews.user_id;
+
+Grundy Hollow Wedding Chapel|Bradford|Pitt|5|good food!
+Sushi World|Steven|Wonder|1|terrible food!
+The Beagle Nightclub|Holly|Berry|3|My dog came back sick
+Amir's Towing|Angela|Jolie|5|car came back in perfect condition
+
+2.4
+SELECT businesses.name, users.first_name, users.last_name, reviews.stars, reviews.comment FROM reviews
+  JOIN businesses ON businesses.id = reviews.business_id
+  JOIN users ON users.id = reviews.user_id
+  WHERE businesses.name = "Amir's Towing";
+
+Amir's Towing|Angela|Jolie|5|car came back in perfect condition
