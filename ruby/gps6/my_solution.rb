@@ -26,22 +26,30 @@ class VirusPredictor
   #statement about the calculation of predicted deaths.
   def predicted_deaths
     # predicted deaths is solely based on population density
-    multiplier = 0.0
-    if @population_density >= 50
-      @population_density.floor.times do |i|
-        if i>200
-          break
-        elsif i != 0 && i%50 == 0
-          multiplier += 0.1
-        end
-      end
-    else
+ #  if @population_density >= 50
+ #    @population_density.floor.times do |i|
+ #      if i>200
+ #        break
+ #      elsif i != 0 && i%50 == 0
+ #        multiplier += 0.1
+ #      end
+ #    end
+ #  else
+ #    multiplier = 0.05
+ #  end
+    if @population_density < 50
       multiplier = 0.05
+    elsif @population_density > 200
+      multiplier = 0.4
+    else
+      multiplier = (@population_density.to_i / 50) /10.0
     end
-
+#
+#
     number_of_deaths = (@population * multiplier).floor
     
     print "#{@state} will lose #{number_of_deaths} people in this outbreak"
+    return number_of_deaths
   end
   # This method looks at the population density for the state and uses this to
   #calculate the speed at which the virus spread. It will then print a 
@@ -84,31 +92,31 @@ end
 # alaska.virus_effects
 #=======================================================================
 # Reflection Section
-What are the differences between the two different
- hash syntaxes shown in the state_data file?
+#What are the differences between the two different
+# hash syntaxes shown in the state_data file?
+#
+#one uses a string as the key making each and the other uses symbols. 
+#This allows the major hash to have an unlimited variety in key values while each 
+#sub has had a specific key to be called.
+#Also, the => is used instead of = in the sub hash because we are assiging the 
+#string key the value of the sub hash.
+#
+#What does require_relative do? How is it different from require?
+#
+#requre_relative allows you to point to a file in the relative directory of the
+#file containing this argument. require must be something within the project library
+#or have its path called upon from the root directory
+#
+#What are some ways to iterate through a hash?
+#you can use .each where the key and the value are available to you.
+#
+#When refactoring virus_effects, what stood out to you about the variables, if anything?
+#
+#all the variables listed in virus_effects were already listed as instance variables
+#during the initialize method. They were not needed as an input parameter for any other
+#method in that class.
 
-one uses a string as the key making each and the other uses symbols. 
-This allows the major hash to have an unlimited variety in key values while each 
-sub has had a specific key to be called.
-Also, the => is used instead of = in the sub hash because we are assiging the 
-string key the value of the sub hash.
-
-What does require_relative do? How is it different from require?
-
-requre_relative allows you to point to a file in the relative directory of the
-file containing this argument. require must be something within the project library
-or have its path called upon from the root directory
-
-What are some ways to iterate through a hash?
-you can use .each where the key and the value are available to you.
-
-When refactoring virus_effects, what stood out to you about the variables, if anything?
-
-all the variables listed in virus_effects were already listed as instance variables
-during the initialize method. They were not needed as an input parameter for any other
-method in that class.
-
-What concept did you most solidify in this challenge?
-concepts of methods calling other methods. Also the idea of a private method and when it 
-should be used.
+#What concept did you most solidify in this challenge?
+#concepts of methods calling other methods. Also the idea of a private method and when it 
+#should be used.
 
