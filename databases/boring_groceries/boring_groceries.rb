@@ -37,6 +37,7 @@ SQL2
 $grocery_db.execute(create_audit_list)
 $grocery_db.execute(create_purchase_log)
 $today = Date.today
+$shopping_list = []
 
 # Methods to turn int to date and date to int (seconds) 
 
@@ -48,38 +49,36 @@ def int_to_date(int)
   Time.at(int).to_date
 end
 
-# is the item due for purchase?
-
-# NOT DONE 
-# NOT DONE def due?($grocery_db, item)
-# NOT DONE   all_list = $grocery_db.execute("SELECT * FROM audit_list WHERE item= ?", [item])
-# NOT DONE   avg =  all_list['sum_days'] / all_list['count_purchased']
-# NOT DONE 
-# NOT DONE end
-# NOT DONE 
-# NOT DONE # Print todays date and all groceries that are past due or coming up (1 day) to buy
-# NOT DONE # include number of days they've been past due
-# NOT DONE 
-# NOT DONE def due_days(date_as_int)
-# NOT DONE   date = int_to_date(date_as_int)
-# NOT DONE   (date - $today + 1).to_i
-# NOT DONE 
-# NOT DONE end
-# NOT DONE 
- def print_groceries()
+#Print Grocery list
+ def print_all_groceries()
+  puts "Today is #{$today.strftime("%m/%d/%Y")}:"
    item_list = $grocery_db.execute("SELECT * FROM audit_list")
    item_list.each do |grocery|
       item_history = $grocery_db.execute("SELECT purchase_date FROM purchase_log WHERE item= ? ORDER BY id DESC LIMIT 1", [grocery['item']])
 
       avg_days = grocery['sum_days'] / grocery['count_purchased']
       estimated_due_date = int_to_date(item_history[0]['purchase_date']) + avg_days
-      due_in_days = (estimated_due_date - $today).to_i
-
-      puts "buy #{grocery['item']} in #{due_in_days} days on avg you buy every #{avg_days} days"
+      due_in_days = (estimated_due_date - $today + 1).to_i
+      puts "buy #{grocery['item']} in #{due_in_days} days on avg you buy #{grocery['item']} every #{avg_days} days"
+      add_to_shopping_list(grocery['item']) if due_in_days == 0
    end
+   print_shopping_list() if $shopping_list.length > 0
  end  
 
-# Menu Method [1- I bought stuff 2- add items 3- remove items]
+def add_to_shopping_list(item)
+  $shopping_list << item
+end
+
+def print_shopping_list()
+  if $shopping_list.length > 0
+    puts "TODAY you need to buy:"
+    $shopping_list.each {|item_to_buy| puts item_to_buy}
+  else
+    puts "You're all stocked up"
+  end
+end
+
+# Menu Method [1- I bought stuff 2- remove items]
 
 
 # Bought stuff Method 
@@ -124,13 +123,15 @@ def update_counts(item)
   $grocery_db.execute("UPDATE audit_list SET sum_days = sum_days + ? ", [days_since_previous_purchase])
 end
 
+
  
-print_groceries()
-shopping_list = ["milk", "eggs", "butter", "witches brew", "beer", "candy", "chex-mix", "salmon"]
+print_all_groceries()
 
 
-bought_items(shopping_list)
+puts "====>What items have you purchased today? (type all eg: 'milk, butter, eggs)"
+puts "to quit type '.quit'"
+puts "for more commands '.help'"
 
-print_groceries()
+
 
 
