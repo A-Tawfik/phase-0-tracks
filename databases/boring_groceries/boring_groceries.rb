@@ -20,7 +20,7 @@ $grocery_db.results_as_hash = true
 create_audit_list = <<-SQL
   CREATE TABLE IF NOT EXISTS audit_list(
   id INTEGER PRIMARY KEY,
-  item VARCHAR(255) UNIQUE,
+  item VARCHAR(255) UNIQUE ON CONFLICT IGNORE,
   count_purchased INT,
   sum_days INT
   )
@@ -36,6 +36,7 @@ SQL2
 
 $grocery_db.execute(create_audit_list)
 $grocery_db.execute(create_purchase_log)
+$today = Date.today
 
 # Methods to turn int to date and date to int (seconds) 
 
@@ -48,7 +49,7 @@ def int_to_date(int)
 end
 
 # is the item due for purchase?
-# NOT DONE $today = Date.today
+
 # NOT DONE 
 # NOT DONE def due?($grocery_db, item)
 # NOT DONE   all_list = $grocery_db.execute("SELECT * FROM audit_list WHERE item= ?", [item])
@@ -65,13 +66,18 @@ end
 # NOT DONE 
 # NOT DONE end
 # NOT DONE 
-# NOT DONE def print_groceries()
-# NOT DONE   item_list = $grocery_db.execute("SELECT * FROM audit_list")
-# NOT DONE   item_list.each do |item|
-# NOT DONE     due = due_days(item['last_purchase'])
-# NOT DONE     puts "buy #{item['item']} in #{due} days"
-# NOT DONE   end
-# NOT DONE end  
+ def print_groceries()
+   item_list = $grocery_db.execute("SELECT * FROM audit_list")
+   item_list.each do |grocery|
+      item_history = $grocery_db.execute("SELECT purchase_date FROM purchase_log WHERE item= ? ORDER BY id DESC LIMIT 1", [grocery['item']])
+
+      avg_days = grocery['sum_days'] / grocery['count_purchased']
+      estimated_due_date = int_to_date(item_history[0]['purchase_date']) + avg_days
+      due_in_days = (estimated_due_date - $today).to_i
+
+      puts "buy #{grocery['item']} in #{due_in_days} days on avg you buy every #{avg_days} days"
+   end
+ end  
 
 # Menu Method [1- I bought stuff 2- add items 3- remove items]
 
@@ -91,10 +97,11 @@ end
 
 def check_if_new(item)
   bool = $grocery_db.execute("SELECT EXISTS(SELECT * FROM purchase_log WHERE item= ? )", [item])
+  bool = bool[0][0]
   if bool == 0
-    false
-  else
     true
+  else
+    false
   end
 end
 
@@ -111,16 +118,19 @@ end
 
 def update_counts(item)
   last_purchase = $grocery_db.execute("SELECT purchase_date FROM purchase_log WHERE item = ? ORDER BY id DESC LIMIT 1", [item])
-  days_since_previous_purchase = (int_to_date(Date.today) - int_to_date(last_purchase)).to_i
+  last_purchase = last_purchase[0]['purchase_date']
+  days_since_previous_purchase = (Date.today - int_to_date(last_purchase)).to_i
   $grocery_db.execute("UPDATE audit_list SET count_purchased = count_purchased + 1")
   $grocery_db.execute("UPDATE audit_list SET sum_days = sum_days + ? ", [days_since_previous_purchase])
 end
 
-
-# updates the date bought of each item and 
-shopping_list = ["milk", "eggs", "butter", "witches brew", "beer", "candy", "chex-mix"]
+ 
+print_groceries()
+shopping_list = ["milk", "eggs", "butter", "witches brew", "beer", "candy", "chex-mix", "salmon"]
 
 
 bought_items(shopping_list)
+
+print_groceries()
 
 
