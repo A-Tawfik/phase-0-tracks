@@ -1,0 +1,23 @@
+#left {
+  position: absolute;
+  top: 80px;
+  left: 300px;
+}
+
+#right{
+  position: absolute;
+  top: 81px;
+  left: 414px;
+}
+
+#fortune{
+  position: absolute;
+  width: 400px;
+  height: 80px;
+  top: 240px;
+  left: 213px;
+  border: 2px solid black;
+  opacity: 0;
+  text-align: center;
+  z-index: -1;
+}
