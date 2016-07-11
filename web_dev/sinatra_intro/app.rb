@@ -84,7 +84,7 @@ get '/search/students' do
   campus = params[:campus]
   response = ""
   sql_statment = "SELECT * FROM students "
-  
+
   if params.length > 0
     sql_statment << "WHERE "
     if name
